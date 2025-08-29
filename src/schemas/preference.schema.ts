@@ -38,7 +38,4 @@ const PreferenceBodyOnlySchema = z.object({
     }),
 });
 
-export const PreferenceBodySchema = z.object({
-  body: PreferenceBodyOnlySchema,
-  query: z.object({}).optional(),
-});
+export const PreferenceBodySchema = PreferenceBodyOnlySchema;

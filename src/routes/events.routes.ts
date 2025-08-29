@@ -1,12 +1,13 @@
-import express, { Router, Request, Response } from "express";
-const router: Router = express.Router();
+import { Router } from 'express';
+import { validate } from '../middlewares/validation.middleware';
+import { EventBodySchema } from '../schemas/events.schema';
+import { sendNotificationHandler } from '../controllers/events.controller';
+import { EventsService } from '../services/events.service';
 
-import { validate } from "../middlewares/validation.middleware";
-import { EventBodySchema } from "../schemas/events.schema";
+export const createEventRouter = (eventsService: EventsService): Router => {
+  const router = Router();
 
-router.post("/", validate(EventBodySchema), (req: Request, res: Response) => {
-  console.log("Received event:", req.body);
-  res.status(200).send({ message: "Event received" });
-});
-
-export default router;
+  router.post('/', validate(EventBodySchema), sendNotificationHandler(eventsService));
+  
+  return router;
+};
