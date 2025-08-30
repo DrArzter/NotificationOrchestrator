@@ -25,7 +25,7 @@ export class EventsService {
       return { sent: false, message: "DND_ACTIVE" };
     }
 
-    console.log(`✅ Sending notification for event ${event.eventId}`);
+    console.log(`Sending notification for event ${event.eventId} to user ${event.userId}`);
     return { sent: true, message: "PROCESS_NOTIFICATION" };
   }
 

@@ -23,7 +23,6 @@ export class PreferencesService {
     prefs: UserPreferences
   ): UserPreferences {
     console.log(`Updating preferences for user ${userId}`);
-    console.log(prefs);
     this.preferencesStore.set(userId, prefs);
     return prefs;
   }
