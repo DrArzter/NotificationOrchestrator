@@ -31,7 +31,7 @@ export const getPreferencesHandler = (service: PreferencesService) => {
       } else {
         res.status(404).json({ 
           success: false, 
-          message: 'User preferences not found' 
+          message: 'USER_PREFERENCES_NOT_FOUND' 
         });
       }
     } catch (error) {
