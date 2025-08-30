@@ -8,7 +8,14 @@ export class PreferencesService {
 
   public findUserPreferences(userId: string): UserPreferences | undefined {
     console.log(`Searching for preferences for user ${userId}`);
-    return this.preferencesStore.get(userId);
+    const prefs = this.preferencesStore.get(userId);
+    if (!prefs) {
+      console.log("User preferences not found");
+      return undefined;
+    } else {
+      console.log("User preferences found");
+      return this.preferencesStore.get(userId);
+    }
   }
 
   public updateUserPreferences(
@@ -16,7 +23,7 @@ export class PreferencesService {
     prefs: UserPreferences
   ): UserPreferences {
     console.log(`Updating preferences for user ${userId}`);
-    console.log(prefs)
+    console.log(prefs);
     this.preferencesStore.set(userId, prefs);
     return prefs;
   }
