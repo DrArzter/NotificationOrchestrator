@@ -43,14 +43,6 @@ cd notification-orchestrator
 npm install
 ```
 
-### 4. Build the Project
-
-Compile TypeScript to JavaScript:
-
-```bash
-npm run build
-```
-
 ---
 
 ## ✅ Running the Test Suite
@@ -143,7 +135,7 @@ curl -X POST http://localhost:3000/preferences/user123 \
 
 ## 🏗️ Project Structure
 
-```
+```markdown
 src/
 ├── controllers/     # Request handlers
 │   └── __tests__/
