@@ -10,7 +10,11 @@
   },
   "jest": {
     "preset": "ts-jest",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/.build/",
+      "/node_modules/"
+    ]
   },
   "keywords": [],
   "author": "",
