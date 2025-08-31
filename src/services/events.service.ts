@@ -7,26 +7,37 @@ export class EventsService {
     private readonly preferencesStore: InMemoryStore<UserPreferences>
   ) {}
 
-  public sendEvent(event: Event): { sent: boolean; message: string } {
+  public sendEvent(event: Event): { decision: string; message: string } {
     console.log(`Processing event ${event.eventId} for user ${event.userId}`);
 
     const userPrefs = this.preferencesStore.get(event.userId);
 
     if (!userPrefs) {
-      return { sent: false, message: "USER_PREFERENCES_NOT_FOUND" };
+      return {
+        decision: "DO_NOT_NOTIFY",
+        message: "USER_PREFERENCES_NOT_FOUND",
+      };
     }
 
     const eventSetting = userPrefs.eventSettings[event.eventType];
     if (!eventSetting || !eventSetting.enabled) {
-      return { sent: false, message: "USER_UNSUBSCRIBED_FROM_EVENT" };
+      return {
+        decision: "DO_NOT_NOTIFY",
+        message: "USER_UNSUBSCRIBED_FROM_EVENT",
+      };
     }
 
     if (this.isInDNDPeriod(userPrefs.dnd, event.timestamp)) {
-      return { sent: false, message: "DND_ACTIVE" };
+      return { decision: "DO_NOT_NOTIFY", message: "DND_ACTIVE" };
     }
 
-    console.log(`Sending notification for event ${event.eventId} to user ${event.userId}`);
-    return { sent: true, message: "PROCESS_NOTIFICATION" };
+    console.log(
+      `Sending notification for event ${event.eventId} to user ${event.userId}`
+    );
+    return {
+      decision: "PROCESS_NOTIFICATION",
+      message: "PROCESS_NOTIFICATION",
+    };
   }
 
   private timeToMinutes(timeStr: string): number {
@@ -39,7 +50,7 @@ export class EventsService {
     timestamp: string
   ): boolean {
     try {
-      const eventTime = new Date(timestamp);
+      const eventTime: Date = new Date(timestamp);
 
       const eventMinutes =
         eventTime.getUTCHours() * 60 + eventTime.getUTCMinutes();

@@ -1,22 +1,23 @@
 import { Request, Response } from "express";
 import { EventsService } from "../services/events.service";
+import { Event } from "../types/events.types";
 
 export const sendNotificationHandler = (service: EventsService) => {
   return (req: Request, res: Response) => {
-    const event = req.body;
+    const event: Event = req.body;
 
     try {
-      const result = service.sendEvent(event);
+      const result: { decision: string; message: string } = service.sendEvent(event);
 
-      if (result.sent) {
+      if (result.decision === "PROCESS_NOTIFICATION") {
         res.status(202).json({
-          success: true,
+          decision: result.decision,
           message: result.message,
           eventId: event.eventId,
         });
       } else {
         res.status(200).json({
-          success: false,
+          decision: result.decision,
           message: result.message,
           eventId: event.eventId,
         });

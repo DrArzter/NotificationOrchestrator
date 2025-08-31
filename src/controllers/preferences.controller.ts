@@ -1,13 +1,14 @@
 import { Request, Response } from 'express';
 import { PreferencesService } from '../services/preferences.service';
+import { UserPreferences } from 'src/types/user-preferences.types';
 
 export const updatePreferencesHandler = (service: PreferencesService) => {
   return (req: Request, res: Response) => {
-    const userId = req.params.userId;
-    const newPrefs = req.body;
+    const userId: string = req.params.userId;
+    const newPrefs: UserPreferences = req.body;
     
     try {
-      const updatedPrefs = service.updateUserPreferences(userId, newPrefs);
+      const updatedPrefs: UserPreferences = service.updateUserPreferences(userId, newPrefs);
       res.status(200).json(updatedPrefs);
     } catch (error) {
       console.error('Error updating preferences:', error);
@@ -21,10 +22,10 @@ export const updatePreferencesHandler = (service: PreferencesService) => {
 
 export const getPreferencesHandler = (service: PreferencesService) => {
   return (req: Request, res: Response) => {
-    const userId = req.params.userId;
+    const userId: string = req.params.userId;
     
     try {
-      const prefs = service.findUserPreferences(userId);
+      const prefs: UserPreferences | undefined = service.findUserPreferences(userId);
       
       if (prefs) {
         res.status(200).json(prefs);
