@@ -40,7 +40,7 @@ describe("EventsService", () => {
 
       const result = eventsService.sendEvent(event);
       expect(mockPreferencesStore.get).toHaveBeenCalledWith("user123");
-      expect(result.sent).toBe(false);
+      expect(result.decision).toBe("DO_NOT_NOTIFY");
       expect(result.message).toBe("DND_ACTIVE");
     });
 
@@ -61,7 +61,7 @@ describe("EventsService", () => {
 
       const result = eventsService.sendEvent(event);
       expect(mockPreferencesStore.get).toHaveBeenCalledWith("user123");
-      expect(result.sent).toBe(true);
+      expect(result.decision).toBe("PROCESS_NOTIFICATION");
       expect(result.message).toBe("PROCESS_NOTIFICATION");
     });
 
@@ -82,7 +82,7 @@ describe("EventsService", () => {
 
       const result = eventsService.sendEvent(event);
       expect(mockPreferencesStore.get).toHaveBeenCalledWith("user123");
-      expect(result.sent).toBe(false);
+      expect(result.decision).toBe("DO_NOT_NOTIFY");
       expect(result.message).toBe("USER_UNSUBSCRIBED_FROM_EVENT");
     });
 
@@ -98,7 +98,7 @@ describe("EventsService", () => {
 
       const result = eventsService.sendEvent(event);
       expect(mockPreferencesStore.get).toHaveBeenCalledWith("user123");
-      expect(result.sent).toBe(false);
+      expect(result.decision).toBe("DO_NOT_NOTIFY");
       expect(result.message).toBe("USER_PREFERENCES_NOT_FOUND");
     });
   });

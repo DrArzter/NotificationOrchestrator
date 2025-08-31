@@ -48,9 +48,9 @@ describe("EventsController", () => {
       const response = await request(app).post("/events").send(event);
       expect(response.status).toBe(200);
       expect(response.body).toEqual({
-        eventId: "event123",
+        decision: "DO_NOT_NOTIFY",
         message: "DND_ACTIVE",
-        success: false,
+        eventId: "event123",
       });
     });
 
@@ -67,7 +67,7 @@ describe("EventsController", () => {
       const response = await request(app).post("/events").send(event);
       expect(response.status).toBe(200);
       expect(response.body).toEqual({
-        success: false,
+        decision: "DO_NOT_NOTIFY",
         message: "USER_PREFERENCES_NOT_FOUND",
         eventId: "event123",
       });
@@ -91,7 +91,7 @@ describe("EventsController", () => {
       const response = await request(app).post("/events").send(event);
       expect(response.status).toBe(200);
       expect(response.body).toEqual({
-        success: false,
+        decision: "DO_NOT_NOTIFY",
         message: "USER_UNSUBSCRIBED_FROM_EVENT",
         eventId: "event123",
       });
@@ -116,7 +116,7 @@ describe("EventsController", () => {
 
       expect(response.status).toBe(202);
       expect(response.body).toEqual({
-        success: true,
+        decision: "PROCESS_NOTIFICATION",
         message: "PROCESS_NOTIFICATION",
         eventId: "event123",
       });
